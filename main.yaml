@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  vars: 
+    AWS_ACCESS_KEY: "{{ access_key }}"
+    AWS_SECRET_KEY: "{{ secret_key }}"
+    AWS_REGION: "{{ region }}"
+  tasks:
+    - name: Setting up security group
+      include_role: 
+        name: security-group
+    - include_role: 
+        name: linux-ec2 

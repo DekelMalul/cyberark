@@ -1,0 +1,9 @@
+---
+- name: creating ec2 linux
+  ec2:
+   aws_secret_key: "{{ AWS_SECRET_KEY }}"
+   aws_access_key: "{{ AWS_ACCESS_KEY }}" 
+   region: "{{ AWS_REGION }}"
+   instance_type: "{{ instance_type }}"
+   image: "{{ ami }}"
+   group: dekel_test

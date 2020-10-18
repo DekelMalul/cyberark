@@ -1,0 +1,3 @@
+---
+instance_type: t2.micro
+ami: ami-032930428bf1abbff
