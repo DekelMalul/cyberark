@@ -4,9 +4,15 @@
     AWS_ACCESS_KEY: "{{ access_key }}"
     AWS_SECRET_KEY: "{{ secret_key }}"
     AWS_REGION: "{{ region }}"
+    AWS_SECURITY_GROUP: "dekel_test"
+    TAG: 
+       EnvName: "Test Environment"
   tasks:
     - name: Setting up security group
       include_role: 
         name: security-group
-    - include_role: 
-        name: linux-ec2 
+      register: security
+    - debug:
+        var: security
+   # - include_role: 
+   #     name: linux-ec2 

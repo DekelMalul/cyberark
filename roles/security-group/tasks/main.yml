@@ -1,20 +1,25 @@
 ---
 - name: create ec2 security groups
   ec2_group:
-    name: "{{ name }}"
+    name: "{{ AWS_SECURITY_GROUP }}" 
     description: setting up security group for the test
     region: "{{ AWS_REGION }}"
     aws_secret_key: "{{ AWS_SECRET_KEY }}"
     aws_access_key: "{{ AWS_ACCESS_KEY }}"
+    tags:  "{{ TAG }}"
     rules:
       - proto: tcp
         ports:
         - 80 
         - 22
-        cidr_ip: 192.168.10.1/24
+        cidr_ip: "{{ MY_SUBNET_IP }}"
+      - proto: tcp
+        ports:
+        - 22 
+        cidr_ip: "{{ ANSIBLE_HOST }}"
     rules_egress:
       - proto: tcp
         ports: 
         - 80
         - 443
-        cidr_ip: 0.0.0.0/0
+        cidr_ip: "{{ OUTBOUND }}"

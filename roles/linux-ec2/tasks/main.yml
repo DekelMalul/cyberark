@@ -6,4 +6,5 @@
    region: "{{ AWS_REGION }}"
    instance_type: "{{ instance_type }}"
    image: "{{ ami }}"
-   group: dekel_test
+   group: "{{ AWS_SECURITY_GROUP }}"
+   instance_tags: "{{ TAG }}"
