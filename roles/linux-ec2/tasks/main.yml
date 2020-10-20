@@ -8,12 +8,16 @@
     image: "{{ AMI }}"
     group: "{{ AWS_SECURITY_GROUP }}"
     instance_tags: "{{ TAG }}"
-    assign_public_ip: "{{ PUBLIC_IP }}"
   register: ec2
+
+#  assign_public_ip: "{{ PUBLIC_IP }}"
+- name: output ec2 info
+  debug:
+    var: ec2
 
 - name: Add new instance to host group
   add_host:
-    hostname: "{{ ec2.public_ip }}"
+    hostname: "{{ ec2.instances.private_ip }}"
     groupname: launched
 
 - name: Waiting for the server to go online

@@ -9,13 +9,18 @@
        EnvName: "Test Environment"
   tasks:
 # maybe we will need to use import!
-    - name: Setting up security group
-      include_role: 
+    - include_role: 
         name: security-group
       register: security
     - include_role: 
         name: linux-ec2 
 
+- name: check var
+  hosts: localhost
+  gather_facts: no 
+  tasks:
+    - debug: 
+        var: "{{ ec2 }}"
 - name: Configure instance(s)
   hosts: launched
   gather_facts: no
