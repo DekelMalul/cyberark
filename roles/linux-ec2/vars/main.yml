@@ -1,3 +1,4 @@
 ---
-instance_type: t2.micro
-ami: ami-032930428bf1abbff
+INSTANCE_TYPE: t2.micro
+AMI: ami-07dfba995513840b5
+PUBLIC_IP: yes

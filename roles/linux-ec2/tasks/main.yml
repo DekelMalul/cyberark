@@ -1,10 +1,11 @@
 ---
 - name: creating ec2 linux
   ec2:
-   aws_secret_key: "{{ AWS_SECRET_KEY }}"
-   aws_access_key: "{{ AWS_ACCESS_KEY }}" 
+   #aws_secret_key: "{{ AWS_SECRET_KEY }}"
+   #aws_access_key: "{{ AWS_ACCESS_KEY }}" 
    region: "{{ AWS_REGION }}"
-   instance_type: "{{ instance_type }}"
-   image: "{{ ami }}"
+   instance_type: "{{ INSTANCE_TYPE }}"
+   image: "{{ AMI }}"
    group: "{{ AWS_SECURITY_GROUP }}"
    instance_tags: "{{ TAG }}"
+   assign_public_ip: "{{ PUBLIC_IP }}"
