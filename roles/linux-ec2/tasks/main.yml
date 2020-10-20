@@ -8,21 +8,17 @@
     image: "{{ AMI }}"
     group: "{{ AWS_SECURITY_GROUP }}"
     instance_tags: "{{ TAG }}"
+    wait: True
   register: ec2
 
-#  assign_public_ip: "{{ PUBLIC_IP }}"
-- name: output ec2 info
-  debug:
-    var: ec2
+- name: enter keyword to remove the instance
+  pause:
+    prompt: "keyword: "
+    echo: yes
 
-- name: Add new instance to host group
-  add_host:
-    hostname: "{{ ec2.instances.private_ip }}"
-    groupname: launched
-
-- name: Waiting for the server to go online
-  delegate_to: "{{ ec2.public_ip }}"
-  wait_for_connection:
-    delay: 60
-    timeout: 320
+- name: Terminate instances that were previously launched
+  ec2:
+    state: 'absent'
+    region: "{{ AWS_REGION }}"
+    instance_ids: '{{ ec2.instance_ids }}'
 

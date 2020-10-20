@@ -8,35 +8,8 @@
     TAG: 
        EnvName: "Test Environment"
   tasks:
-# maybe we will need to use import!
     - include_role: 
         name: security-group
       register: security
     - include_role: 
         name: linux-ec2 
-
-- name: check var
-  hosts: localhost
-  gather_facts: no 
-  tasks:
-    - debug: 
-        var: "{{ ec2 }}"
-- name: Configure instance(s)
-  hosts: launched
-  gather_facts: no
-  roles: 
-    - setting_nginx
-
-- name: Terminate instances
-  hosts: localhost
-  gather_facts: no
-  tasks:
-  - name: enter keyword to remove the instance
-    pause:
-      prompt: "enter keyword: "
-      echo: yes
-
-  - name: Terminate instances that were previously launched
-    ec2:
-      state: 'absent'
-      instance_ids: '{{ ec2.instance_ids }}'

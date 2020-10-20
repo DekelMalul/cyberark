@@ -4,8 +4,6 @@
     name: "{{ AWS_SECURITY_GROUP }}" 
     description: setting up security group for the test
     region: "{{ AWS_REGION }}"
-    #aws_secret_key: "{{ AWS_SECRET_KEY }}"
-    #aws_access_key: "{{ AWS_ACCESS_KEY }}"
     tags:  "{{ TAG }}"
     rules:
       - proto: tcp
