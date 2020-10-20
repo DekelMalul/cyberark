@@ -1,11 +1,24 @@
 ---
 - name: creating ec2 linux
   ec2:
-   #aws_secret_key: "{{ AWS_SECRET_KEY }}"
-   #aws_access_key: "{{ AWS_ACCESS_KEY }}" 
-   region: "{{ AWS_REGION }}"
-   instance_type: "{{ INSTANCE_TYPE }}"
-   image: "{{ AMI }}"
-   group: "{{ AWS_SECURITY_GROUP }}"
-   instance_tags: "{{ TAG }}"
-   assign_public_ip: "{{ PUBLIC_IP }}"
+    #aws_secret_key: "{{ AWS_SECRET_KEY }}"
+    #aws_access_key: "{{ AWS_ACCESS_KEY }}" 
+    region: "{{ AWS_REGION }}"
+    instance_type: "{{ INSTANCE_TYPE }}"
+    image: "{{ AMI }}"
+    group: "{{ AWS_SECURITY_GROUP }}"
+    instance_tags: "{{ TAG }}"
+    assign_public_ip: "{{ PUBLIC_IP }}"
+  register: ec2
+
+- name: Add new instance to host group
+  add_host:
+    hostname: "{{ ec2.public_ip }}"
+    groupname: launched
+
+- name: Waiting for the server to go online
+  delegate_to: "{{ ec2.public_ip }}"
+  wait_for_connection:
+    delay: 60
+    timeout: 320
+
